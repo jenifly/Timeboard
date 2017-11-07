@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:clipChildren="false"
+    android:id="@+id/mainrootrl">
+
+    <ImageView
+        android:id="@+id/mainbackgorund"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:clickable="true"
+        android:id="@+id/llayoutviewpage"
+        android:clipChildren="false"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.jenifly.timeboard.view.verticalViewPager
+            android:clipChildren="false"
+            android:id="@+id/mainviewpage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+        <com.jenifly.timeboard.view.multichoicescirclebutton.MultiChoicesCircleButton
+            android:id="@+id/multiChoicesCircleButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/delpage"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/icon_delete"
+        android:layout_marginTop="30dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:tint="@color/white"/>
+
+    <LinearLayout
+        android:id="@+id/pagebarlt"
+        android:visibility="invisible"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.jenifly.timeboard.view.ViewPagerTag
+            android:id="@+id/viewPagerTag"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/addnewpage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:tint="@color/white"
+                android:src="@mipmap/icon_add" />
+            <ImageView
+                android:id="@+id/mianpage"
+                android:layout_marginLeft="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:tint="@color/white"
+                android:src="@mipmap/icon_mainpage" />
+            <ImageView
+                android:id="@+id/returnmain"
+                android:layout_marginLeft="20dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:tint="@color/white"
+                android:src="@mipmap/icon_return" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+

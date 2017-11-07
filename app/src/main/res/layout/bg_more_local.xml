@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/bg_more_local_main"
+    tools:context="com.jenifly.timeboard.activity.BGLocalActivity">
+
+    <RelativeLayout
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="21dp">
+
+        <ImageView
+            android:id="@+id/bg_more_local_back"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:src="@mipmap/ic_back"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            android:text="@string/bg_selcte"/>
+
+        <TextView
+            android:id="@+id/bg_more_local_ok"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:padding="10dp"
+            android:text="确定"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="#88EEEEEE"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bg_more_local_warning">
+
+            <com.jenifly.timeboard.view.instacropper.InstaCropperView
+                android:id="@+id/instacropper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_centerInParent="true"
+                android:background="#88FFFFFF"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/bg_more_local_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="36dp"
+            android:paddingRight="36dp"
+            android:paddingBottom="16dp"
+            android:textSize="14dp"
+            android:layout_alignParentBottom="true"
+            android:text="为保证最佳显示效果，需要对图片进项适当的裁剪，请拖动或缩放图片"
+            android:gravity="center"/>
+    </RelativeLayout>
+</LinearLayout>
