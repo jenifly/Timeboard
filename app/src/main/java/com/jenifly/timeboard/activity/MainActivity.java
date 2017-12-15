@@ -1,8 +1,10 @@
 package com.jenifly.timeboard.activity;
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -10,8 +12,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -93,6 +97,7 @@ public class MainActivity extends FragmentActivity{
     @BindView(R.id.mainbackgorund) ImageView mainbackgorund;
     @BindView(R.id.multiChoicesCircleButton) MultiChoicesCircleButton multiChoicesCircleButton;
 
+    private final static int RESUTECODE = 0;
     private fragAdapter fragPagerAdapter;
     private DisplayMetrics dm2;
     private boolean isRunTimer = false;
@@ -115,12 +120,33 @@ public class MainActivity extends FragmentActivity{
         setContentView(R.layout.activity_main);
         ActivityHelper.initState(this);
         ButterKnife.bind(this);
-        if(!Datainit())
-            Toast.makeText(this, "没有存储权限！请手动设置", Toast.LENGTH_SHORT).show();
-        viewInit();
+        requestPermission();
     }
 
-    private boolean Datainit(){
+    private void requestPermission(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, RESUTECODE);
+        }else {
+            viewInit();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case RESUTECODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    viewInit();
+                }
+                if(grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, "您已拒绝为本工具赋予存储限权，位保证本工具正常运行，请为添加限权！", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+        }
+    }
+
+    private void Datainit(){
         File folder = new File(Environment.getExternalStorageDirectory(),"Timeboard");
         if (!folder.exists()) {
             folder.mkdir();
@@ -149,14 +175,11 @@ public class MainActivity extends FragmentActivity{
             }
         }else {
             long backgb = saveBitmap(BlurBitmapUtils.getBlurBitmap(getBaseContext(), BitmapFactory.decodeResource(getResources(), R.drawable.bg), 12));
-            if( backgb == -1)
-                return false;
             theme = new Theme(getResources().getDrawable(R.drawable.bg));
             dataHelper.addBaseInfo(new BaseInfo(0,1,0,0,"null","null","null",R.drawable.bg+"",
                    backgb, theme.getBGCOLOR(), theme.getBGCOLOR_LIGHT(), theme.getBGCOLOR_DARK(), theme.getBGCOLOR_PRESS()));
             Datainit();
         }
-        return true;
     }
 
     public static long saveBitmap(Bitmap bitmap) {
@@ -178,6 +201,7 @@ public class MainActivity extends FragmentActivity{
     }
 
     private void viewInit() {
+        Datainit();
         fragPagerAdapter = new fragAdapter(this, getSupportFragmentManager());
         mViewPager.setAdapter(fragPagerAdapter);
         mViewPager.setOffscreenPageLimit(2);
